@@ -3,9 +3,6 @@ import React from "react";
 const Cards = () => {
 
     const [cards, setCards] = React.useState([]);
-    const [urlImage, setUrlImage] = React.useState([]);
-    const [name, setName] = React.useState("");
-
 
     React.useEffect(() => {
         async function getCards() {
@@ -18,11 +15,10 @@ const Cards = () => {
             });
 
             const cards = await response.json();
-            setUrlImage(cards.map((card) => card.link, setName(cards.map((card) => card.name))));
+            const filteredCards = cards.map(({name, link}) => ({name, link}));
+            setCards(filteredCards);
+            console.log(cards)
 
-            console.log(cards[0].name);
-
-            setCards(cards);
         }
         getCards()
     }, []);
@@ -32,9 +28,9 @@ const Cards = () => {
             {cards.map((card, index) => (
                 <div className="elements__element" id="elements__element" key={index}>
                     <img src="/images/elements__trash.png" alt="icon trash" className="elements__trash"/>
-                    <img src={urlImage[index]} alt="#" className="elements__photo"/>
+                    <img src={card.link} alt="#" className="elements__photo"/>
                     <div className="elements__info" id="#">
-                        <h3 className={`"elements__place" ${name[index]}`}></h3>
+                        <h3 className={`"elements__place" ${card.name}`}></h3>
                         <button className="elements__button">
                             <img src="/images/heart.png" alt="icon heart" className="elements__icon"/>
                             <span className="elements__count"/>

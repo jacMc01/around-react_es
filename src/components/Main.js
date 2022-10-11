@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../blocks/Main.css';
 import {useForm} from "./useForm";
 import PopupWithForm from "./PopupWithForm";
@@ -7,13 +7,39 @@ import Cards from "./Card";
 
 const Main = () => {
 
-    function HandleEditAvatarClick() {
-        // Se llama un hook para abrir el modal
+        const [avatar, setAvatar] = useState("");
 
-        openModal1()
-        // llamar la funcion para activar validacion en
-        // el formulario activo...
+        useEffect(() => {
+            async function getAvatar(){
+                const baseUrl = "https://around.nomoreparties.co/v1/cohort-1-es";
+                const response = await fetch(baseUrl + "/users/me/avatar", {
+                    method: "PATCH",
+                    headers: {
+                        authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                const avatar = await response.json();
+                setAvatar(avatar);
+
+            }
+            getAvatar()
+        }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(e.target);
     }
+
+    function handleEditAvatarClick(e) {
+        e.preventDefault();
+        console.log(e.target.value)
+        console.log("Edit profile button clicked");
+
+
+    }
+
 
     function handleEditProfileClick() {
         console.log("Edit profile button clicked");
@@ -32,7 +58,7 @@ const Main = () => {
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__images">
-                        <img src="#" alt="a person" className="profile__img" onClick={HandleEditAvatarClick}/>
+                        <img src="#" alt="a person" className="profile__img" onClick={openModal1}/>
                             <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
                     </div>
                     <div className="profile__person">
@@ -48,8 +74,9 @@ const Main = () => {
             </section>
             <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h4 className="popup__title">Cambiar foto de perfil</h4>
-                <form className="popup__form" name="popup1__form" noValidate>
+                <form onSubmit={handleSubmit} className="popup__form" name="popup1__form" noValidate>
                     <input
+                        onChange={handleEditAvatarClick}
                         className="popup__name popup__input"
                         id="popup1__name"
                         type="text"
@@ -57,7 +84,6 @@ const Main = () => {
                         minLength="2"
                         maxLength="40"
                         name="name"
-                        // onChange={handleInputChange}
                         required>
                     </input>
                     <span className="popup__name-error"></span>
