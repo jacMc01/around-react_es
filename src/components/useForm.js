@@ -13,3 +13,4 @@ export const useForm = (initialValue = false) => {
 
     return [isOpen, openModal, closeModal];
 }
+

@@ -1,26 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
+import api from "../utils/api";
 
 const Cards = () => {
 
-    const [cards, setCards] = React.useState([]);
+    const [cards, setCards] = useState([]);
 
     React.useEffect(() => {
-        async function getCards() {
-            const baseUrl = "https://around.nomoreparties.co/v1/cohort-1-es";
-            const response = await fetch(baseUrl + "/cards", {
-                method: "GET",
-                headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
-                }
-            });
+        const fetchCard = async () => {
+            try {
+                const response = await api.get("cards", {
+                    headers: {
+                        authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
+                    }
+                });
+                const cards = response.data;
+                setCards(cards);
 
-            const cards = await response.json();
-            const filteredCards = cards.map(({name, link}) => ({name, link}));
-            setCards(filteredCards);
-            console.log(cards)
-
-        }
-        getCards()
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchCard();
     }, []);
 
     return (
@@ -30,7 +30,7 @@ const Cards = () => {
                     <img src="/images/elements__trash.png" alt="icon trash" className="elements__trash"/>
                     <img src={card.link} alt="#" className="elements__photo"/>
                     <div className="elements__info" id="#">
-                        <h3 className={`"elements__place" ${card.name}`}></h3>
+                        <h3 className={`"elements__place"`}>{card.name}</h3>
                         <button className="elements__button">
                             <img src="/images/heart.png" alt="icon heart" className="elements__icon"/>
                             <span className="elements__count"/>

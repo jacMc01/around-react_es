@@ -4,42 +4,35 @@ import {useForm} from "./useForm";
 import PopupWithForm from "./PopupWithForm";
 import  "../blocks/Modal.css";
 import Cards from "./Card";
+import api from "../utils/api";
 
 const Main = () => {
+    const [avatar, setAvatar] = useState("");
 
-        const [avatar, setAvatar] = useState("");
-
-        useEffect(() => {
-            async function getAvatar(){
-                const baseUrl = "https://around.nomoreparties.co/v1/cohort-1-es";
-                const response = await fetch(baseUrl + "/users/me/avatar", {
-                    method: "PATCH",
-                    headers: {
-                        authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                        "Content-Type": "application/json"
-                    }
-                });
-
-                const avatar = await response.json();
-                setAvatar(avatar);
-
-            }
-            getAvatar()
-        }, []);
-
-    const handleSubmit = (e) => {
+    const handleSubmitAvatar = async (e) => {
         e.preventDefault();
-        console.log(e.target);
+        console.log(e.target["popup1__name"].value);
+        try{
+            const response = await api.patch("users/me/avatar", {avatar: e.target["popup1__name"].value}, {
+                headers: {
+                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                    "Content-Type": "application/json"
+                },
+            });
+            const avatarSrc = response.data.avatar;
+            console.log(avatarSrc);
+            setAvatar(avatarSrc);
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     function handleEditAvatarClick(e) {
         e.preventDefault();
-        console.log(e.target.value)
-        console.log("Edit profile button clicked");
-
+        // console.log(e.target.value)
 
     }
-
 
     function handleEditProfileClick() {
         console.log("Edit profile button clicked");
@@ -58,7 +51,7 @@ const Main = () => {
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__images">
-                        <img src="#" alt="a person" className="profile__img" onClick={openModal1}/>
+                        <img src={avatar}  alt="a person" className="profile__img" onClick={openModal1}/>
                             <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
                     </div>
                     <div className="profile__person">
@@ -74,7 +67,7 @@ const Main = () => {
             </section>
             <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h4 className="popup__title">Cambiar foto de perfil</h4>
-                <form onSubmit={handleSubmit} className="popup__form" name="popup1__form" noValidate>
+                <form onSubmit={handleSubmitAvatar} className="popup__form" name="popup1__form" noValidate>
                     <input
                         onChange={handleEditAvatarClick}
                         className="popup__name popup__input"
@@ -82,7 +75,7 @@ const Main = () => {
                         type="text"
                         placeholder="Nombre"
                         minLength="2"
-                        maxLength="40"
+                        maxLength="500"
                         name="name"
                         required>
                     </input>
@@ -132,7 +125,6 @@ const Main = () => {
                         minLength="2">
                     </input>
                     <span className="popup__name-error"></span>
-
                     <input
                         className="popup__about popup__input"
                         id="popup3__about"
@@ -145,7 +137,6 @@ const Main = () => {
                     <button className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
-
         </>
     );
 }
