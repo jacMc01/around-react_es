@@ -28,6 +28,32 @@ const Main = () => {
         }
     }
 
+    const [name, setName] = useState("");
+    const [about, setAbout] = useState("");
+
+    const handleSubmitPerfil = async (e) => {
+        e.preventDefault();
+        console.log(e.target["popup__name"].value);
+        console.log(e.target["popup__about"].value);
+        try{
+            const response = await api.patch("users/me", {name: e.target["popup__name"].value, about: e.target["popup__about"].value}, {
+                headers: {
+                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                    "Content-Type": "application/json"
+                },
+            });
+            const nameInput = response.data.name;
+            const aboutInput = response.data.about;
+            console.log(nameInput);
+            console.log(aboutInput);
+            setName(nameInput);
+            setAbout(aboutInput);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     function handleEditAvatarClick(e) {
         e.preventDefault();
         // console.log(e.target.value)
@@ -55,8 +81,8 @@ const Main = () => {
                             <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
                     </div>
                     <div className="profile__person">
-                        <h2 className="profile__name">Jacqueline Mckay</h2>
-                        <p className="profile__about">Desarrollador Web FullStack</p>
+                        <h2 className={`"profile__name"`}>{name}</h2>
+                        <p className={`"profile__about"`}>{about}</p>
                     </div>
                     <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2}/></button>
                 </div>
@@ -85,7 +111,7 @@ const Main = () => {
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal2} closeModal={closeModal2}>
                 <h4 className="popup__title">Editar perfil</h4>
-                <form className="popup__form" name="popup__form" noValidate>
+                <form onSubmit={handleSubmitPerfil} className="popup__form" name="popup__form" noValidate>
                     <input
                         className="popup__name popup__input"
                         id="popup__name"
@@ -94,7 +120,7 @@ const Main = () => {
                         minLength="2"
                         maxLength="40"
                         name="name"
-                        // onChange={handleInputChange}
+                        onChange={handleEditProfileClick}
                         required>
                     </input>
                     <span className="popup__name-error"></span>
@@ -106,7 +132,7 @@ const Main = () => {
                         minLength="2"
                         maxLength="200"
                         name="aboutMe"
-                        // onChange={handleInputChange}
+                        onChange={handleEditProfileClick}
                         required>
                     </input>
                     <span className="popup__about-error"></span>
