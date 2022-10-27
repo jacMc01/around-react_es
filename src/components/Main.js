@@ -4,32 +4,59 @@ import {useForm} from "./useForm";
 import PopupWithForm from "./PopupWithForm";
 import  "../blocks/Modal.css";
 import Cards from "./Card";
-import api from "../utils/api";
+import api, {editAvatar} from "../utils/api";
 
 const Main = () => {
     const [avatar, setAvatar] = useState("");
-
-    const handleSubmitAvatar = async (e) => {
-        e.preventDefault();
-        console.log(e.target["popup1__name"].value);
-        try{
-            const response = await api.patch("users/me/avatar", {avatar: e.target["popup1__name"].value}, {
-                headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                    "Content-Type": "application/json"
-                },
-            });
-            const avatarSrc = response.data.avatar;
-            console.log(avatarSrc);
-            setAvatar(avatarSrc);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const [name, setName] = useState("");
     const [about, setAbout] = useState("");
+    const [isOpenModal1, openModal1, closeModal1] = useForm(false);
+    const [isOpenModal2, openModal2, closeModal2] = useForm(false);
+    const [isOpenModal3, openModal3, closeModal3] = useForm(false);
+
+
+    const initialValueAvatar = {inputAvatar: ""};
+    const [valuesAvatar, setValuesAvatar] = useState(initialValueAvatar);
+    const [errorsAvatar, setErrorsAvatar] = useState({});
+    const [isSubmitAvatar, setSubmitAvatar] = useState(false);
+
+
+    const handleSubmitAvatar = (e) => {
+        e.preventDefault();
+        console.log(e.target["popup1__name"].value);
+        editAvatar( e, res => setAvatar(res));
+        //break
+        setErrorsAvatar(validate(valuesAvatar));
+        setSubmitAvatar(true);
+    }
+
+    useEffect(() => {
+        if (Object.keys(errorsAvatar).length === 0 && isSubmitAvatar) {
+            console.log(valuesAvatar);
+        }
+    }, [errorsAvatar]);
+
+
+    function handleEditAvatarClick(e) {
+        e.preventDefault();
+        // console.log(e.target.value)
+        const {name, value} = e.target;
+        setValuesAvatar({...valuesAvatar, [name]: value});
+        console.log(valuesAvatar);
+    }
+
+    const validate = (valuesAvatar) => {
+        let errors = {};
+        const regex = /^(ftp|http|https):\/\/[^ "]+$/;
+        if (!valuesAvatar.inputAvatar) {
+            errors.inputAvatar = "Required";
+        }
+        else if (!regex.test(valuesAvatar.inputAvatar)) {
+            errors.inputAvatar = "Invalid URL";
+        }
+
+        return errors;
+}
 
     const handleSubmitPerfil = async (e) => {
         e.preventDefault();
@@ -44,8 +71,6 @@ const Main = () => {
             });
             const nameInput = response.data.name;
             const aboutInput = response.data.about;
-            console.log(nameInput);
-            console.log(aboutInput);
             setName(nameInput);
             setAbout(aboutInput);
 
@@ -54,11 +79,6 @@ const Main = () => {
         }
     }
 
-    function handleEditAvatarClick(e) {
-        e.preventDefault();
-        // console.log(e.target.value)
-
-    }
 
     function handleEditProfileClick() {
         console.log("Edit profile button clicked");
@@ -67,10 +87,6 @@ const Main = () => {
     function handleAddPlaceClick() {
         console.log("Add place button clicked");
     }
-
-    const [isOpenModal1, openModal1, closeModal1] = useForm(false);
-    const [isOpenModal2, openModal2, closeModal2] = useForm(false);
-    const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
     return (
         <>
@@ -99,10 +115,11 @@ const Main = () => {
                         className="popup__name popup__input"
                         id="popup1__name"
                         type="text"
-                        placeholder="Nombre"
+                        placeholder="Link de la imagen"
                         minLength="2"
                         maxLength="500"
-                        name="name"
+                        name="inputAvatar"
+                        value={valuesAvatar.inputAvatar}
                         required>
                     </input>
                     <span className="popup__name-error"></span>

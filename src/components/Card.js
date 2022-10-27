@@ -32,7 +32,6 @@ const Cards = () => {
                     <div className="elements__info" id="#">
                         <h3 className={`"elements__place"`}>{card.name}</h3>
                         <button className="elements__button">
-                            <img src="/images/heart.png" alt="icon heart" className="elements__icon"/>
                             <span className="elements__count"/>
                         </button>
                     </div>
