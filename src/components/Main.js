@@ -4,60 +4,25 @@ import {useForm} from "./useForm";
 import PopupWithForm from "./PopupWithForm";
 import  "../blocks/Modal.css";
 import Cards from "./Card";
-import api from "../utils/api";
+
+import {AvatarCustom} from "../hooks/AvatarCustom.js";
+import {PerfilCustom} from "../hooks/PerfilCustom.js";
+import {CardsCustom} from "../hooks/CardsCustom.js";
 
 const Main = () => {
-    const [avatar, setAvatar] = useState("");
+    const [isOpenModal1, openModal1, closeModal1] = useForm(false);
+    const [isOpenModal2, openModal2, closeModal2] = useForm(false);
+    const [isOpenModal3, openModal3, closeModal3] = useForm(false);
+    const [update, setUpdate] = useState(false);
 
-    const handleSubmitAvatar = async (e) => {
-        e.preventDefault();
-        console.log(e.target["popup1__name"].value);
-        try{
-            const response = await api.patch("users/me/avatar", {avatar: e.target["popup1__name"].value}, {
-                headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                    "Content-Type": "application/json"
-                },
-            });
-            const avatarSrc = response.data.avatar;
-            console.log(avatarSrc);
-            setAvatar(avatarSrc);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const [name, setName] = useState("");
-    const [about, setAbout] = useState("");
-
-    const handleSubmitPerfil = async (e) => {
-        e.preventDefault();
-        console.log(e.target["popup__name"].value);
-        console.log(e.target["popup__about"].value);
-        try{
-            const response = await api.patch("users/me", {name: e.target["popup__name"].value, about: e.target["popup__about"].value}, {
-                headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                    "Content-Type": "application/json"
-                },
-            });
-            const nameInput = response.data.name;
-            const aboutInput = response.data.about;
-            console.log(nameInput);
-            console.log(aboutInput);
-            setName(nameInput);
-            setAbout(aboutInput);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    useEffect(() => {}, [update]);
+    const {isAvatar, handleSubmitAvatar} = AvatarCustom();
+    const {userObject, handleSubmitPerfil} = PerfilCustom();
+    const {handleSubmitCard} = CardsCustom(setUpdate);
 
     function handleEditAvatarClick(e) {
         e.preventDefault();
         // console.log(e.target.value)
-
     }
 
     function handleEditProfileClick() {
@@ -68,28 +33,24 @@ const Main = () => {
         console.log("Add place button clicked");
     }
 
-    const [isOpenModal1, openModal1, closeModal1] = useForm(false);
-    const [isOpenModal2, openModal2, closeModal2] = useForm(false);
-    const [isOpenModal3, openModal3, closeModal3] = useForm(false);
-
     return (
         <>
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__images">
-                        <img src={avatar}  alt="a person" className="profile__img" onClick={openModal1}/>
+                        <img src={isAvatar}  alt="a person" className="profile__img" onClick={openModal1}/>
                             <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
                     </div>
                     <div className="profile__person">
-                        <h2 className={`"profile__name"`}>{name}</h2>
-                        <p className={`"profile__about"`}>{about}</p>
+                        <h2 className={`"profile__name"`}>{userObject.name}</h2>
+                        <p className={`"profile__about"`}>{userObject.about}</p>
                     </div>
                     <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2}/></button>
                 </div>
                 <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
             </section>
             <section className="elements">
-                <Cards />
+                <Cards setUpdate={setUpdate} userObject={userObject}/>
             </section>
             <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h4 className="popup__title">Cambiar foto de perfil</h4>
@@ -141,7 +102,7 @@ const Main = () => {
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal3} closeModal={closeModal3}>
                 <h4 className="popup__title">Nuevo lugar</h4>
-                <form className="popup__form" name="popup3__form">
+                <form onSubmit={handleSubmitCard} className="popup__form" name="popup3__form">
                     <input
                         className="popup__name popup__input"
                         id="popup3__name"
