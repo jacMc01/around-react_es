@@ -3,20 +3,10 @@ import {CardsCustom} from "../hooks/CardsCustom";
 
 
 const Cards = ({userObject}) => {
-    const {cards} = CardsCustom();
-    //let whiteHeart = "/images/heart.png";
+    const {cards, handleDeleteCard} = CardsCustom();
 
-    function deleteCard(event) {
-        console.log((event.target.parentElement));
-        console.log((event.target.dataset.id));
-    }
 
-    // function handleCardLikes(event) {
-    //         console.log("Card clicked");
-    //
-    //     whiteHeart = "/images/heart_black.png";
-    //
-    // }
+
 
 
     return (
@@ -24,7 +14,7 @@ const Cards = ({userObject}) => {
             {cards.map((card, index) => (
                 <div className="elements__element" id="elements__element" key={index}>
                     {(card.owner._id === userObject._id)
-                        ? <img onClick={deleteCard} src="/images/elements__trash.png" alt="icon trash" className="elements__trash"/>
+                        ? <img onClick={handleDeleteCard} src="/images/elements__trash.png" alt="icon trash" className="elements__trash"/>
                         : <></>}
                     <img src={card.link} alt="#" className="elements__photo"/>
                     <div className="elements__info" id="#">

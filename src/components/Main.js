@@ -33,6 +33,8 @@ const Main = () => {
         console.log("Add place button clicked");
     }
 
+
+
     return (
         <>
             <section className="profile">
@@ -67,7 +69,7 @@ const Main = () => {
                         required>
                     </input>
                     <span className="popup__name-error"></span>
-                    <button type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal1} className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal2} closeModal={closeModal2}>
@@ -97,7 +99,7 @@ const Main = () => {
                         required>
                     </input>
                     <span className="popup__about-error"></span>
-                    <button type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal2} type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal3} closeModal={closeModal3}>
@@ -121,7 +123,7 @@ const Main = () => {
                         maxLength="200" required>
                     </input>
                     <span className="popup__name-error"></span>
-                    <button className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal3} className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
         </>

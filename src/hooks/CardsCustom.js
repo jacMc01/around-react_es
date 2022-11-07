@@ -45,7 +45,21 @@ export function CardsCustom(setUpdate) {
         }
     }
 
+    const handleDeleteCard = async (cardId) => {
+        try {
+            await api.delete(`cards/${cardId}`, {
+                headers: {
+                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
+                }
+            });
+            const newCards = cards.filter((card) => card._id !== cardId);
+            setCards(newCards);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    return {cards, setCards, handleSubmitCard}
+
+    return {cards, setCards, handleSubmitCard, handleDeleteCard}
 }
 
