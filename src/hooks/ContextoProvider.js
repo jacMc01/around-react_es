@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import api from "../utils/api";
 
+export const contexto = React.createContext();
 
-export function CardsCustom(setUpdate) {
+export function ContextoProvider(setUpdate, props) {
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
@@ -20,7 +21,7 @@ export function CardsCustom(setUpdate) {
             }
         };
         fetchCard();
-    }, [setCards]);
+    }, []);
 
     const handleSubmitCard = async (e) => {
         e.preventDefault();
@@ -45,8 +46,10 @@ export function CardsCustom(setUpdate) {
         }
     }
 
-    const handleDeleteCard = async (cardId) => {
+
+    const handleDeleteCard = async (event) => {
         try {
+            const cardId = event.target.getAttribute('data-card-id');
             await api.delete(`cards/${cardId}`, {
                 headers: {
                     authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
@@ -59,7 +62,38 @@ export function CardsCustom(setUpdate) {
         }
     }
 
+    const handleLikeCard = async (event) => {
+        // const [isLiked, setIsLiked] = useState(false);
+        try {
+            const cardId = event.target.getAttribute('data-card-id');
+            console.log(cardId);
+            const isLiked = event.target.classList.contains('elements__icon');
+            const response = await api.put(`cards/likes/${cardId}`, {
+                headers: {
+                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                }
+            });
+            // const newCards = cards.map((card) => card._id === cardId ? response.data : card);
+            // setCards(newCards);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            console.log("completed")
+        }
+    }
 
-    return {cards, setCards, handleSubmitCard, handleDeleteCard}
+
+    const valorDelContexto = {
+        cards,
+        handleSubmitCard,
+        handleDeleteCard,
+        handleLikeCard
+    }
+
+    return(
+        <contexto.Provider value={valorDelContexto}>
+            {props.children}
+        </contexto.Provider>
+    )
 }
 

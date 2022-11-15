@@ -7,7 +7,7 @@ import Cards from "./Card";
 
 import {AvatarCustom} from "../hooks/AvatarCustom.js";
 import {PerfilCustom} from "../hooks/PerfilCustom.js";
-import {CardsCustom} from "../hooks/CardsCustom.js";
+import {ContextoProvider, contexto} from "../hooks/ContextoProvider";
 
 const Main = () => {
     const [isOpenModal1, openModal1, closeModal1] = useForm(false);
@@ -15,14 +15,13 @@ const Main = () => {
     const [isOpenModal3, openModal3, closeModal3] = useForm(false);
     const [update, setUpdate] = useState(false);
 
-    useEffect(() => {}, [update]);
+
     const {isAvatar, handleSubmitAvatar} = AvatarCustom();
     const {userObject, handleSubmitPerfil} = PerfilCustom();
-    const {handleSubmitCard} = CardsCustom(setUpdate);
+    const {handleSubmitCard} = ContextoProvider(contexto, setUpdate);
 
     function handleEditAvatarClick(e) {
         e.preventDefault();
-        // console.log(e.target.value)
     }
 
     function handleEditProfileClick() {
@@ -32,8 +31,6 @@ const Main = () => {
     function handleAddPlaceClick() {
         console.log("Add place button clicked");
     }
-
-
 
     return (
         <>
