@@ -14,23 +14,55 @@ const Main = () => {
     const [isOpenModal2, openModal2, closeModal2] = useForm(false);
     const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
-
     const { isAvatar, handleSubmitAvatar } = AvatarCustom();
     const { userObject, handleSubmitPerfil } = PerfilCustom();
     //const {handleSubmitCard} = ContextoProvider(contexto, setUpdate);
     //const {handleSubmitCard} = useContext(contexto)
     const { handleSubmitCard } = useCards()
 
+
     function handleEditAvatarClick(e) {
         e.preventDefault();
+
+        const input = e.target;
+        const spanError = input.nextElementSibling;
+
+        if (input.value.length < input.minLength || input.value.length > input.maxLength) {
+            input.classList.add("popup__input_type_error");
+            spanError.textContent = "Debe tener entre " + input.minLength + " y " + input.maxLength + " caracteres";
+        } else {
+            input.classList.remove("popup__input_type_error");
+            spanError.textContent = "";
+        }
     }
 
-    function handleEditProfileClick() {
-        console.log("Edit profile button clicked");
+    function handleEditProfileClick(e) {
+        e.preventDefault();
+        const input = e.target;
+        const spanError = input.nextElementSibling;
+
+        if (input.value.length < input.minLength || input.value.length > input.maxLength) {
+            input.classList.add("popup__input_type_error");
+            spanError.textContent = "Debe tener entre " + input.minLength + " y " + input.maxLength + " caracteres";
+        } else {
+            input.classList.remove("popup__input_type_error");
+            spanError.textContent = "";
+        }
     }
 
-    function handleAddPlaceClick() {
-        console.log("Add place button clicked");
+    function handleAddPlaceClick(e) {
+        e.preventDefault();
+
+        const input = e.target;
+        const spanError = input.nextElementSibling;
+
+        if (input.value.length < input.minLength || input.value.length > input.maxLength) {
+            input.classList.add("popup__input_type_error");
+            spanError.textContent = "Debe tener entre " + input.minLength + " y " + input.maxLength + " caracteres";
+        } else {
+            input.classList.remove("popup__input_type_error");
+            spanError.textContent = "";
+        }
     }
 
     return (
@@ -109,7 +141,9 @@ const Main = () => {
                         type="text"
                         placeholder="Titulo"
                         maxLength="30"
-                        minLength="2">
+                        minLength="2"
+                        onChange={handleAddPlaceClick}>
+                        
                     </input>
                     <span className="popup__name-error"></span>
                     <input
@@ -118,7 +152,8 @@ const Main = () => {
                         type="url"
                         placeholder="Enlace de la imagen"
                         minLength="2"
-                        maxLength="200" required>
+                        maxLength="200"
+                        onChange={handleAddPlaceClick} required>
                     </input>
                     <span className="popup__name-error"></span>
                     <button onClick={closeModal3} className="popup__button-form popup__button-form_inactive">Guardar</button>
