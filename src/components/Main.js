@@ -1,84 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import '../blocks/Main.css';
-import {useForm} from "./useForm";
+import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
-import  "../blocks/Modal.css";
+import "../blocks/Modal.css";
 import Cards from "./Card";
-import api, {editAvatar} from "../utils/api";
+
+import { AvatarCustom } from "../hooks/AvatarCustom.js";
+import { PerfilCustom } from "../hooks/PerfilCustom.js";
+import { useCards } from "../hooks/ContextoProvider";
 
 const Main = () => {
-    const [avatar, setAvatar] = useState("");
-    const [name, setName] = useState("");
-    const [about, setAbout] = useState("");
     const [isOpenModal1, openModal1, closeModal1] = useForm(false);
     const [isOpenModal2, openModal2, closeModal2] = useForm(false);
     const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
 
-    const initialValueAvatar = {inputAvatar: ""};
-    const [valuesAvatar, setValuesAvatar] = useState(initialValueAvatar);
-    const [errorsAvatar, setErrorsAvatar] = useState({});
-    const [isSubmitAvatar, setSubmitAvatar] = useState(false);
-
-
-    const handleSubmitAvatar = (e) => {
-        e.preventDefault();
-        console.log(e.target["popup1__name"].value);
-        editAvatar( e, res => setAvatar(res));
-        //break
-        setErrorsAvatar(validate(valuesAvatar));
-        setSubmitAvatar(true);
-    }
-
-    useEffect(() => {
-        if (Object.keys(errorsAvatar).length === 0 && isSubmitAvatar) {
-            console.log(valuesAvatar);
-        }
-    }, [errorsAvatar]);
-
+    const { isAvatar, handleSubmitAvatar } = AvatarCustom();
+    const { userObject, handleSubmitPerfil } = PerfilCustom();
+    //const {handleSubmitCard} = ContextoProvider(contexto, setUpdate);
+    //const {handleSubmitCard} = useContext(contexto)
+    const { handleSubmitCard } = useCards()
 
     function handleEditAvatarClick(e) {
         e.preventDefault();
-        // console.log(e.target.value)
-        const {name, value} = e.target;
-        setValuesAvatar({...valuesAvatar, [name]: value});
-        console.log(valuesAvatar);
     }
-
-    const validate = (valuesAvatar) => {
-        let errors = {};
-        const regex = /^(ftp|http|https):\/\/[^ "]+$/;
-        if (!valuesAvatar.inputAvatar) {
-            errors.inputAvatar = "Required";
-        }
-        else if (!regex.test(valuesAvatar.inputAvatar)) {
-            errors.inputAvatar = "Invalid URL";
-        }
-
-        return errors;
-}
-
-    const handleSubmitPerfil = async (e) => {
-        e.preventDefault();
-        console.log(e.target["popup__name"].value);
-        console.log(e.target["popup__about"].value);
-        try{
-            const response = await api.patch("users/me", {name: e.target["popup__name"].value, about: e.target["popup__about"].value}, {
-                headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                    "Content-Type": "application/json"
-                },
-            });
-            const nameInput = response.data.name;
-            const aboutInput = response.data.about;
-            setName(nameInput);
-            setAbout(aboutInput);
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
 
     function handleEditProfileClick() {
         console.log("Edit profile button clicked");
@@ -93,19 +38,19 @@ const Main = () => {
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__images">
-                        <img src={avatar}  alt="a person" className="profile__img" onClick={openModal1}/>
-                            <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
+                        <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} />
+                        <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
                     </div>
                     <div className="profile__person">
-                        <h2 className={`"profile__name"`}>{name}</h2>
-                        <p className={`"profile__about"`}>{about}</p>
+                        <h2 className={`"profile__name"`}>{userObject.name}</h2>
+                        <p className={`"profile__about"`}>{userObject.about}</p>
                     </div>
-                    <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2}/></button>
+                    <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2} /></button>
                 </div>
                 <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
             </section>
             <section className="elements">
-                <Cards />
+                <Cards userObject={userObject} />
             </section>
             <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h4 className="popup__title">Cambiar foto de perfil</h4>
@@ -115,15 +60,14 @@ const Main = () => {
                         className="popup__name popup__input"
                         id="popup1__name"
                         type="text"
-                        placeholder="Link de la imagen"
+                        placeholder="Nombre"
                         minLength="2"
                         maxLength="500"
-                        name="inputAvatar"
-                        value={valuesAvatar.inputAvatar}
+                        name="name"
                         required>
                     </input>
                     <span className="popup__name-error"></span>
-                    <button type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal1} className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal2} closeModal={closeModal2}>
@@ -153,12 +97,12 @@ const Main = () => {
                         required>
                     </input>
                     <span className="popup__about-error"></span>
-                    <button type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal2} type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
             <PopupWithForm isOpen={isOpenModal3} closeModal={closeModal3}>
                 <h4 className="popup__title">Nuevo lugar</h4>
-                <form className="popup__form" name="popup3__form">
+                <form onSubmit={handleSubmitCard} className="popup__form" name="popup3__form">
                     <input
                         className="popup__name popup__input"
                         id="popup3__name"
@@ -177,7 +121,7 @@ const Main = () => {
                         maxLength="200" required>
                     </input>
                     <span className="popup__name-error"></span>
-                    <button className="popup__button-form popup__button-form_inactive">Guardar</button>
+                    <button onClick={closeModal3} className="popup__button-form popup__button-form_inactive">Guardar</button>
                 </form>
             </PopupWithForm>
         </>
