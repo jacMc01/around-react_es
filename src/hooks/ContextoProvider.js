@@ -75,33 +75,50 @@ export function ContextoProvider({children}) {
     const handleLikeCard = async (event) => {
         const imgElement = event.target;
 
+        const heartBlack = '/images/heart_black.png'
+        const heartWhite = '/images/heart.png'
+
         if (imgElement.src.includes("heart_black")) {
-            imgElement.setAttribute("src", "/images/heart.png");
+            imgElement.setAttribute("src", heartWhite);
+            
+            try {
+                const cardId = event.target.getAttribute('data-card-id');
+                console.log(cardId)
+                const send_str_url = `cards/likes/${cardId}`
+                const response = await api.delete(send_str_url,{}, {
+                    headers: {
+                        Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            } finally {
+                console.log("completed")
+            }
         } 
         else {
-            imgElement.setAttribute("src", "/images/heart_black.png");
+            imgElement.setAttribute("src", heartBlack);
+
+            try{
+                const cardId = event.target.getAttribute('data-card-id');
+                console.log(cardId)
+                const send_str_url = `cards/likes/${cardId}`
+                console.log(send_str_url)
+                const response = await api.put(send_str_url,{}, {
+                    headers: {
+                        Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            } finally {
+                console.log("completed")
+            }
         }
 
-        try{
-            const cardId = event.target.getAttribute('data-card-id');
-            console.log(cardId)
-            const send_str_url = `cards/likes/${cardId}`
-            console.log(send_str_url)
-            const response = await api.put(send_str_url,{}, {
-                headers: {
-                    Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-                }
-            });
         
-            console.dir(response)
 
-
-        } catch (error) {
-            console.log(error);
-        } finally {
-            console.log("completed")
-        }
-
+        
     }
 
 
