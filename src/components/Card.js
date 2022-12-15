@@ -5,6 +5,9 @@ import { useCards } from "../hooks/ContextoProvider";
 const Cards = ({userObject}) => {
     const { cards, handleDeleteCard, handleLikeCard } = useCards()
 
+
+
+
     return (
         <>
             {cards.map((card, index) => (
@@ -18,7 +21,6 @@ const Cards = ({userObject}) => {
                         <button className="elements__button">
                             <img onClick={handleLikeCard} data-card-id={card._id} src="/images/heart.png" alt="icon heart" className="elements__icon"/>
                             <span className="elements__count"/> {card.likes.length}
-                            <span className="elements__count"/>
                         </button>
                     </div>
                 </div>

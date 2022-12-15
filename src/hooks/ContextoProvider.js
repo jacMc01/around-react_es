@@ -73,23 +73,35 @@ export function ContextoProvider({children}) {
     }
 
     const handleLikeCard = async (event) => {
-        // const [isLiked, setIsLiked] = useState(false);
-        try {
+        const imgElement = event.target;
+
+        if (imgElement.src.includes("heart_black")) {
+            imgElement.setAttribute("src", "/images/heart.png");
+        } 
+        else {
+            imgElement.setAttribute("src", "/images/heart_black.png");
+        }
+
+        try{
             const cardId = event.target.getAttribute('data-card-id');
-            console.log(cardId);
-            const isLiked = event.target.classList.contains('elements__icon');
-            const response = await api.put(`cards/likes/${cardId}`, {
+            console.log(cardId)
+            const send_str_url = `cards/likes/${cardId}`
+            console.log(send_str_url)
+            const response = await api.put(send_str_url,{}, {
                 headers: {
-                    authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+                    Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                 }
             });
-            // const newCards = cards.map((card) => card._id === cardId ? response.data : card);
-            // setCards(newCards);
+        
+            console.dir(response)
+
+
         } catch (error) {
             console.log(error);
         } finally {
             console.log("completed")
         }
+
     }
 
 
