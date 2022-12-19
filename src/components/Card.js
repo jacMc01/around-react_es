@@ -8,10 +8,13 @@ const Cards = ({userObject}) => {
     const heartWhite = '/images/heart.png'
 
     const [likeStatus, setLikeStatus] = useState([]);
-
-    // Initialize the like status of each card to false
+    
     useEffect(() => {
-        const initialLikeStatus = cards.map(() => false);
+        const initialLikeStatus = cards.map((item) => {
+            return userObject && userObject._id && item.likes.some(user => {
+                return user && user._id === userObject._id
+            });
+        });
         setLikeStatus(initialLikeStatus);
     }, [cards]);
 
@@ -26,9 +29,8 @@ const Cards = ({userObject}) => {
                     <div className="elements__info" id="#">
                         <h3 className={`"elements__place"`}>{card.name}</h3>
                         <button className="elements__button">
-                            {/* Add the ternary operation to the img tag to change the heart color based on the like status */}
-                            <img onClick={handleLikeCard} data-card-id={card._id} src={likeStatus[index] ? heartBlack : heartWhite} alt="icon heart" className="elements__icon"/>
-                            <span className="elements__count"/> {card.likes.length}
+                            <img onClick={handleLikeCard} data-user-id={userObject._id} data-card-id={card._id} src={likeStatus[index] ? heartBlack : heartWhite} alt="icon heart" className="elements__icon"/>
+                            <span className="elements__count" > {card.likes.length} </span>
                         </button>
                     </div>
                 </div>
