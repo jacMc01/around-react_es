@@ -1,5 +1,4 @@
 import React from "react";
-import {useForm} from "./useForm";
 
 const PopupWithForm = ({children, isOpen, closeModal}) => {
 

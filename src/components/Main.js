@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import '../blocks/Main.css';
 import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
@@ -16,8 +16,6 @@ const Main = () => {
 
     const { isAvatar, handleSubmitAvatar } = AvatarCustom();
     const { userObject, handleSubmitPerfil } = PerfilCustom();
-    //const {handleSubmitCard} = ContextoProvider(contexto, setUpdate);
-    //const {handleSubmitCard} = useContext(contexto)
     const { handleSubmitCard } = useCards()
 
 
