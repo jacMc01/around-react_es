@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useCards } from "../hooks/ContextoProvider";
+import { ImagePopup } from "./ImagePopup";
 
 
 const Cards = ({userObject}) => {
@@ -25,7 +26,7 @@ const Cards = ({userObject}) => {
                     {(card.owner._id === userObject._id)
                         ? <img onClick={handleDeleteCard} data-card-id={card._id} src="/images/elements__trash.png" alt="icon trash" className="elements__trash"/>
                         : <></>}
-                    <img src={card.link} alt="#" className="elements__photo"/>
+                    <ImagePopup imageUrl={card.link} />
                     <div className="elements__info" id="#">
                         <h3 className={`"elements__place"`}>{card.name}</h3>
                         <button className="elements__button">
