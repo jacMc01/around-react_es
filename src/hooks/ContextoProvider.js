@@ -76,19 +76,13 @@ export function ContextoProvider({children}) {
     const handleLikeCard = async (event) => {
         const imgElement = event.target;
 
-        const heartBlack = '/images/heart_black.png'
-        const heartWhite = '/images/heart.png'
         const cardId = event.target.getAttribute('data-card-id');
         const userId = event.target.getAttribute('data-user-id');
 
         if (imgElement.src.includes("heart_black")) {
-            // imgElement.setAttribute("src", heartWhite);
-
             try {
-
-                console.log(cardId)
                 const send_str_url = `cards/likes/${cardId}`
-                const response = await api.delete(send_str_url, {
+                await api.delete(send_str_url, {
                     headers: {
                         Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                     }
@@ -100,13 +94,11 @@ export function ContextoProvider({children}) {
             }
         }
         else {
-            // imgElement.setAttribute("src", heartBlack);
-
             try{
                 console.log(cardId)
                 const send_str_url = `cards/likes/${cardId}`
                 console.log(send_str_url)
-                const response = await api.put(send_str_url,{}, {
+                await api.put(send_str_url,{}, {
                     headers: {
                         Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                     }
@@ -130,7 +122,6 @@ export function ContextoProvider({children}) {
         })
         setCards(newCards);
     }
-
 
     const valorDelContexto = {
         cards,

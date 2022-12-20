@@ -7,9 +7,9 @@ const ImagePopup = ({ imageUrl }) => {
       <img onClick={() => setIsOpen(true)} src={imageUrl} alt="#" className="elements__photo" />
       {isOpen && (
         <div className="elements__image-popup">
-          <img src={imageUrl} alt="#" className="elements__photo" />
-          <button onClick={() => setIsOpen(false)} className="popup__close-button">
-            Close
+          <img src={imageUrl} alt="#" className="elements__photo-popup" />
+          <button onClick={() => setIsOpen(false)} className="elements__close-button">
+          <img src="/images/close_icon.png" alt="close icon"/>
           </button>
         </div>
       )}

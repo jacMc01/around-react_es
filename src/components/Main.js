@@ -69,7 +69,7 @@ const Main = () => {
                 <div className="profile__container">
                     <div className="profile__images">
                         <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} />
-                        <img src="/images/prfile__pencil.png" alt="icon edit image" className="profile__edit" />
+                        <img src="/images/prfile__pencil.png" alt="icon edit images" className="profile__edit" />
                     </div>
                     <div className="profile__person">
                         <h2 className={`"profile__name"`}>{userObject.name}</h2>
