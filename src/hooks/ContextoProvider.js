@@ -50,7 +50,7 @@ export function ContextoProvider({children}) {
             const newCard = response.data;
 
             // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
-            console.log(newCard);
+            //corregido
             setCards([newCard, ...cards]);
             //setUpdate(true);
 
