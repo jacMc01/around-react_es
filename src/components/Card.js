@@ -9,14 +9,17 @@ const Cards = ({userObject}) => {
     const heartWhite = '/images/heart.png'
 
     const [likeStatus, setLikeStatus] = useState([]);
+
     
-    useEffect(() => {
+    useEffect((userObject) => {
         const initialLikeStatus = cards.map((item) => {
             return userObject && userObject._id && item.likes.some(user => {
                 return user && user._id === userObject._id
             });
         });
         setLikeStatus(initialLikeStatus);
+        // Necesita corrección: Nota que hay un warning en la consola con un error apuntando hacia ese bloque `useEffect`. Debes declarar la variable `userObject` adentro de tu bloque `useEffect` o definirlo dentro de tu Array de montaje.
+        //corregido
     }, [cards]);
 
     return (

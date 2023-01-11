@@ -1,8 +1,9 @@
 import React from "react";
-import '../blocks/Main.css';
+// Necesita corrección: Este comentario és válido para todos tus archivos de componente. Debes importar todos tus archivos CSS desde un archivo unificado (en CSS) con auxilio del comando "@import": https://www.positioniseverything.net/css-import. De esa forma, tu proyecto tendrá mejor mantenimiento y podrás añadir nuevos archivos de estilo facilmente por medio de ese nuevo archivo.
+//corregido
+import '../../src/index.css';
 import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
-import "../blocks/Modal.css";
 import Cards from "./Card";
 
 import { AvatarCustom } from "../hooks/AvatarCustom.js";

@@ -36,8 +36,9 @@ export function ContextoProvider({children}) {
 
     const handleSubmitCard = async (e) => {
         e.preventDefault();
-        console.log(e.target["popup3__name"].value);
-        console.log(e.target["popup3__about"].value);
+        // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
+        // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
+        //corregido x2
         try{
             const response = await api.post("cards", {name: e.target["popup3__name"].value, link: e.target["popup3__about"].value}, {
                 headers: {
@@ -48,6 +49,7 @@ export function ContextoProvider({children}) {
 
             const newCard = response.data;
 
+            // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
             console.log(newCard);
             setCards([newCard, ...cards]);
             //setUpdate(true);
@@ -89,15 +91,14 @@ export function ContextoProvider({children}) {
                 });
             } catch (error) {
                 console.log(error);
-            } finally {
-                console.log("completed")
             }
         }
         else {
             try{
-                console.log(cardId)
+                // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
                 const send_str_url = `cards/likes/${cardId}`
-                console.log(send_str_url)
+                // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
+                //corregido
                 await api.put(send_str_url,{}, {
                     headers: {
                         Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
@@ -105,8 +106,6 @@ export function ContextoProvider({children}) {
                 });
             } catch (error) {
                 console.log(error);
-            } finally {
-                console.log("completed")
             }
         }
         //refrescar todo

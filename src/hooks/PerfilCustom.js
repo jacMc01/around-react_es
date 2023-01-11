@@ -25,7 +25,8 @@ export function PerfilCustom(){
     }, []);
 
 
-    useEffect(() => {}, []);
+    // Necesita corrección: Evita dejar Hooks vacíos dentro de tu aplicación, ellos pueden causar errores o comportamiento inesperado dentro de tu app.
+    // useEffect(() => {}, []); corregido
 
     const handleSubmitPerfil = async (e) => {
         e.preventDefault();

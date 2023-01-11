@@ -24,7 +24,8 @@ export function AvatarCustom(){
 
     const handleSubmitAvatar = async (e) => {
         e.preventDefault();
-        console.log(e.target["popup1__name"].value);
+        // Necesita corrección: Evita dejar líneas de debug en tu código al enviarlo, ellas pueden exponer información sensible de tu proyecto.
+        //corregido
         try{
             const response = await api.patch("users/me/avatar", {isAvatar: e.target["popup1__name"].value}, {
                 headers: {
@@ -33,7 +34,6 @@ export function AvatarCustom(){
                 },
             });
             const avatarSrc = response.data.isAvatar;
-            console.log(avatarSrc);
             setIsAvatar(avatarSrc);
 
         } catch (error) {
