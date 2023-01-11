@@ -35,3 +35,5 @@ export default App;
 // Un pequeño recordatorio:
 
 // Ten en cuenta que tu proyecto será aprobado cuando todas las observaciones marcadas como "Necesita corrección" sean solucionadas. Una vez hecho esto, su trabajo será aprobado y podrá continuar con su aprendizaje. Aparte de eso, espero haber cubierto casi todo en tu proyecto, ¡te deseo éxito y buena suerte en tus estudios!
+
+//Muchas gracias por las correcciones, estoy muy contenta, he corregido todo, solo tengo una duda en el popup de la imagen para posicionar la X, he intentado de diferentes maneras, no se si podria darme una sugerencia, gracias!!
