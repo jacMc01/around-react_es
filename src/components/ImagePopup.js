@@ -10,7 +10,7 @@ const ImagePopup = ({ imageUrl }) => {
           <img src={imageUrl} alt="#" className="elements__photo-popup" />
           <button onClick={() => setIsOpen(false)} className="elements__close-button">
           {/* Necesita corrección: Esta imagen debe estar más para arriba, en la esquina superior izquierda del Popup de tu imagen. Intenta crear una clase siguiendo la metodología BEM y aplicando los ajustes necesarios (puedes usar `position: absolute` para eso). */}
-          <img src="/images/close_icon.png" alt="close icon"/>
+          <img class="elements__close-icon" src="/images/close_icon.png" alt="close icon"/>
           </button>
         </div>
       )}

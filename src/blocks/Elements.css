@@ -224,7 +224,11 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  position: relative;
+
+}
+
+.elements__close-icon{
+  position: absolute;
   top: 0;
   right: 0;
 }
