@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
-import Cards from "./Card";
+import Card from "./Card";
 
 import { AvatarCustom } from "../hooks/AvatarCustom.js";
 import { PerfilCustom } from "../hooks/PerfilCustom.js";
@@ -15,7 +15,6 @@ const Main = () => {
   const { isAvatar, handleSubmitAvatar } = AvatarCustom();
   const { userObject, handleSubmitPerfil } = PerfilCustom();
   const { handleSubmitCard } = useCards()
-
 
   function handleEditAvatarClick(e) {
     e.preventDefault();
@@ -78,7 +77,7 @@ const Main = () => {
         <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
       </section>
       <section className="elements">
-        <Cards userObject={userObject} />
+        <Card userObject={userObject} />
       </section>
       <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
         <h4 className="popup__title">Cambiar foto de perfil</h4>

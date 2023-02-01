@@ -3,7 +3,7 @@ import { useCards } from "../hooks/ContextoProvider";
 import { ImagePopup } from "./ImagePopup";
 
 
-const Cards = ({userObject}) => {
+const Card = ({userObject}) => {
   const { cards, handleDeleteCard, handleLikeCard } = useCards()
   const heartBlack = '/images/heart_black.png'
   const heartWhite = '/images/heart.png'
@@ -40,4 +40,4 @@ const Cards = ({userObject}) => {
   )
 }
 
-export default Cards;
+export default Card;
