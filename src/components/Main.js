@@ -3,8 +3,6 @@ import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
 import Card from "./Card";
 
-import { AvatarCustom } from "../hooks/AvatarCustom.js";
-import { PerfilCustom } from "../hooks/PerfilCustom.js";
 import { useCards } from "../hooks/ContextoProvider";
 
 const Main = () => {
@@ -12,9 +10,13 @@ const Main = () => {
   const [isOpenModal2, openModal2, closeModal2] = useForm(false);
   const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
-  const { isAvatar, handleSubmitAvatar } = AvatarCustom();
-  const { userObject, handleSubmitPerfil } = PerfilCustom();
-  const { handleSubmitCard } = useCards()
+  const { 
+    handleSubmitCard, 
+    // isAvatar, 
+    perfil, 
+    // handleSubmitAvatar,
+    handleSubmitPerfil
+  } = useCards()
 
   function handleEditAvatarClick(e) {
     e.preventDefault();
@@ -60,28 +62,49 @@ const Main = () => {
     }
   }
 
+  function debuggerComponent(props) {
+    const { name } = props;
+    debugger; // Add the debugger statement here
+    return <div>Hello, {name}!</div>;
+  }
+  
+
+
   return (
     <>
+      <debuggerComponent></debuggerComponent>
+
       <section className="profile">
         <div className="profile__container">
+
+
           <div className="profile__images">
-            <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} />
+            {/* <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} /> */}
             <img src="/images/prfile__pencil.png" alt="icon edit images" className="profile__edit" />
           </div>
+          
+          <debuggerComponent></debuggerComponent>
+
           <div className="profile__person">
-            <h2 className={`"profile__name"`}>{userObject.name}</h2>
-            <p className={`"profile__about"`}>{userObject.about}</p>
+            <h2 className={`"profile__name"`}>{perfil.name}</h2>
+            <p className={`"profile__about"`}>{perfil.about}</p>
           </div>
+
+          
           <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2} /></button>
         </div>
         <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
       </section>
+
+
       <section className="elements">
-        <Card userObject={userObject} />
+        <Card userObject={perfil} />
       </section>
+
+      
       <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
         <h4 className="popup__title">Cambiar foto de perfil</h4>
-        <form onSubmit={handleSubmitAvatar} className="popup__form" name="popup1__form" noValidate>
+        <form  className="popup__form" name="popup1__form" noValidate>
           <input
             onChange={handleEditAvatarClick}
             className="popup__name popup__input"
