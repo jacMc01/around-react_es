@@ -3,7 +3,7 @@ import React from "react";
 import '../../src/index.css';
 import { useForm } from "./useForm";
 import PopupWithForm from "./PopupWithForm";
-import Cards from "./Card";
+import Card from "./Card";
 
 import { AvatarCustom } from "../hooks/AvatarCustom.js";
 import { PerfilCustom } from "../hooks/PerfilCustom.js";
@@ -80,7 +80,7 @@ const Main = () => {
                 <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
             </section>
             <section className="elements">
-                <Cards userObject={userObject} />
+                <Card userObject={userObject} />
             </section>
             <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h4 className="popup__title">Cambiar foto de perfil</h4>
@@ -141,7 +141,7 @@ const Main = () => {
                         maxLength="30"
                         minLength="2"
                         onChange={handleAddPlaceClick}>
-                        
+
                     </input>
                     <span className="popup__name-error"></span>
                     <input

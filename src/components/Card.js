@@ -3,14 +3,14 @@ import { useCards } from "../hooks/ContextoProvider";
 import { ImagePopup } from "./ImagePopup";
 
 
-const Cards = ({userObject}) => {
+const Card = ({userObject}) => {
     const { cards, handleDeleteCard, handleLikeCard } = useCards()
     const heartBlack = '/images/heart_black.png'
     const heartWhite = '/images/heart.png'
 
     const [likeStatus, setLikeStatus] = useState([]);
 
-    
+
     useEffect((userObject) => {
         const initialLikeStatus = cards.map((item) => {
             return userObject && userObject._id && item.likes.some(user => {
@@ -42,4 +42,4 @@ const Cards = ({userObject}) => {
     )
 }
 
-export default Cards;
+export default Card;
