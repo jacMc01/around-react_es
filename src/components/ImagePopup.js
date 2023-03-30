@@ -18,4 +18,4 @@ const ImagePopup = ({ imageUrl }) => {
   );
 };
 
-export  {ImagePopup};
+export default ImagePopup;
