@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import api from "../utils/api";
+import api from "../components/Api";
 
 export function PerfilCustom(){
     const [name, setName] = useState("");

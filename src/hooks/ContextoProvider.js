@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import api from "../utils/api";
+import Api from "../components/Api";
 
 export const contexto = React.createContext();
 
@@ -22,7 +22,7 @@ export function ContextoProvider({children}) {
 
     const fetchCard = async () => {
         try {
-            const response = await api.get("cards", {
+            const response = await Api.get("cards", {
                 headers: {
                     authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
                 }
@@ -37,7 +37,7 @@ export function ContextoProvider({children}) {
     const handleSubmitCard = async (e) => {
         e.preventDefault();
         try{
-            const response = await api.post("cards", {name: e.target["popup3__name"].value, link: e.target["popup3__about"].value}, {
+            const response = await Api.post("cards", {name: e.target["popup3__name"].value, link: e.target["popup3__about"].value}, {
                 headers: {
                     authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                     "Content-Type": "application/json"
@@ -58,7 +58,7 @@ export function ContextoProvider({children}) {
     const handleDeleteCard = async (event) => {
         try {
             const cardId = event.target.getAttribute('data-card-id');
-            await api.delete(`cards/${cardId}`, {
+            await Api.delete(`cards/${cardId}`, {
                 headers: {
                     authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
                 }
@@ -79,7 +79,7 @@ export function ContextoProvider({children}) {
         if (imgElement.src.includes("heart_black")) {
             try {
                 const send_str_url = `cards/likes/${cardId}`
-                await api.delete(send_str_url, {
+                await Api.delete(send_str_url, {
                     headers: {
                         Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                     }
@@ -91,7 +91,7 @@ export function ContextoProvider({children}) {
         else {
             try{
                 const send_str_url = `cards/likes/${cardId}`
-                await api.put(send_str_url,{}, {
+                await Api.put(send_str_url,{}, {
                     headers: {
                         Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
                     }
