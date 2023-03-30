@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCards } from "../hooks/ContextoProvider";
-import { ImagePopup } from "./ImagePopup";
+import ImagePopup from "./ImagePopup";
 
 
 const Card = () => {
