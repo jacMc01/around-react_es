@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import { 
-  getCards, 
-  postCard, 
-  deleteCard, 
-  deleteLikeCard, 
+import {
+  getCards,
+  postCard,
+  deleteCard,
+  deleteLikeCard,
   putLikeCard,
   // getAvatar,
   getPerfil,
   // patchAvatar
   patchPerfil
-} from "../utils/Api";
+} from "../utils/ApiOld";
 
 export const contexto = React.createContext();
 
@@ -66,7 +66,7 @@ export function ContextoProvider({children}) {
     setCards([newCard, ...cards]);
   }
 
-  const handleDeleteCard = async (event) => { 
+  const handleDeleteCard = async (event) => {
       const cardId = event.target.getAttribute('data-card-id');
       const response = deleteCard();
       const newCards = response.filter((card) => card._id !== cardId);
