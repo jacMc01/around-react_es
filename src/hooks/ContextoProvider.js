@@ -1,18 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import {
-  getCards,
-  postCard,
-  deleteCard,
-  deleteLikeCard,
-  putLikeCard,
-  // getAvatar,
-  getPerfil,
-  // patchAvatar
-  patchPerfil
-} from "../components/Api";
+import Api from "../components/Api";
 
-import Api2 from "../components/Api2";
+let { getCards, deleteCard, deleteLikeCard, postCard, putLikeCard, patchPerfil, getPerfil } = Api();
 
 export const contexto = React.createContext();
 

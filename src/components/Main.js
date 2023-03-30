@@ -4,17 +4,17 @@ import PopupWithForm from "./PopupWithForm";
 import Card from "./Card";
 
 import { useCards } from "../hooks/ContextoProvider";
-import { ImagePopup } from "./ImagePopup";
+import ImagePopup from "./ImagePopup";
 
 const Main = () => {
   const [isOpenModal1, openModal1, closeModal1] = useForm(false);
   const [isOpenModal2, openModal2, closeModal2] = useForm(false);
   const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
-  const { 
-    handleSubmitCard, 
-    // isAvatar, 
-    perfil, 
+  const {
+    handleSubmitCard,
+    // isAvatar,
+    perfil,
     // handleSubmitAvatar,
     handleSubmitPerfil
   } = useCards()
@@ -68,7 +68,7 @@ const Main = () => {
     debugger; // Add the debugger statement here
     return <div>Hello, {name}!</div>;
   }
-  
+
 
 
   return (
@@ -83,7 +83,7 @@ const Main = () => {
             {/* <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} /> */}
             <img src="/images/prfile__pencil.png" alt="icon edit images" className="profile__edit" />
           </div>
-          
+
           <debuggerComponent></debuggerComponent>
 
           <div className="profile__person">
@@ -91,7 +91,7 @@ const Main = () => {
             <p className={`"profile__about"`}>{perfil.about}</p>
           </div>
 
-          
+
           <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2} /></button>
         </div>
         <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
@@ -103,7 +103,7 @@ const Main = () => {
         <Card userObject={perfil} />
       </section>
 
-      
+
       <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
         <h4 className="popup__title">Cambiar foto de perfil</h4>
         <form  className="popup__form" name="popup1__form" noValidate>
@@ -163,7 +163,7 @@ const Main = () => {
             maxLength="30"
             minLength="2"
             onChange={handleAddPlaceClick}>
-            
+
           </input>
           <span className="popup__name-error"></span>
           <input
