@@ -230,5 +230,6 @@
 .elements__close-icon{
   position: absolute;
   top: 0;
+  /* Necesita corrección: Prueba usar `right: 6;`, eso debe manejar tu icono de cerrar correctamente */
   right: 0;
 }
