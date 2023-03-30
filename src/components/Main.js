@@ -4,6 +4,7 @@ import PopupWithForm from "./PopupWithForm";
 import Card from "./Card";
 
 import { useCards } from "../hooks/ContextoProvider";
+import { ImagePopup } from "./ImagePopup";
 
 const Main = () => {
   const [isOpenModal1, openModal1, closeModal1] = useForm(false);
@@ -98,6 +99,7 @@ const Main = () => {
 
 
       <section className="elements">
+        <ImagePopup imageUrl={""}/>
         <Card userObject={perfil} />
       </section>
 
