@@ -12,6 +12,8 @@ import {
   patchPerfil
 } from "../utils/ApiOld";
 
+import Api from "../utils/Api";
+
 export const contexto = React.createContext();
 
 export function useCards(){
