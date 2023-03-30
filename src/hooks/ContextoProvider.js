@@ -12,7 +12,7 @@ import {
   patchPerfil
 } from "../utils/ApiOld";
 
-import Api from "../utils/Api";
+import Api from "../components/Api";
 
 export const contexto = React.createContext();
 
