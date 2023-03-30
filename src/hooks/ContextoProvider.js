@@ -10,9 +10,9 @@ import {
   getPerfil,
   // patchAvatar
   patchPerfil
-} from "../utils/ApiOld";
+} from "../components/Api";
 
-import Api from "../components/Api";
+import Api2 from "../components/Api2";
 
 export const contexto = React.createContext();
 
