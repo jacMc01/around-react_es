@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useCards } from "../hooks/ContextoProvider";
 import ImagePopup from "./ImagePopup";
 
-
 const Card = ({userObject}) => {
   const { cards, handleDeleteCard, handleLikeCard } = useCards()
   const heartBlack = '/images/heart_black.png'

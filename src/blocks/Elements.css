@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   gap: 17px;
   cursor: pointer;
+  position: relative;
 }
 
 .elements__element {
@@ -216,20 +217,17 @@
 }
 
 .elements__photo-popup {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 70%;
+  max-height: 70%;
 }
 
 .elements__close-button{
   border: none;
   background-color: transparent;
   cursor: pointer;
-
 }
 
 .elements__close-icon{
   position: absolute;
-  top: 0;
-  /* Necesita corrección: Prueba usar `right: 6;`, eso debe manejar tu icono de cerrar correctamente */
-  right: 0;
+  top: 15%;
 }
