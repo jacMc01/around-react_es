@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import api from "../utils/api";
 
+
+//todo : unify with AvatarCustom
 export function PerfilCustom(){
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -15,8 +17,9 @@ export function PerfilCustom(){
             authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
           }
         });
-        const user = response.data;
-        setUserObject(user);
+        setUserObject(response.data);
+        setName(response.data.name);
+        setAbout(response.data.about);
       } catch (error) {
         console.log(error);
       }
@@ -34,10 +37,8 @@ export function PerfilCustom(){
           "Content-Type": "application/json"
         },
       });
-      const nameInput = response.data.name;
-      const aboutInput = response.data.about;
-      setName(nameInput);
-      setAbout(aboutInput);
+      setName(response.data.name);
+      setAbout(response.data.about);
 
     } catch (error) {
       console.log(error);

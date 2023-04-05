@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import { useContext } from "react";
 import api from "../utils/api";
 
+
+//todo unify api calls inside Api.js
 export const contexto = React.createContext();
 
 export function useCards(){
@@ -27,8 +29,7 @@ export function ContextoProvider({children}) {
           authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
         }
       });
-      const cards = response.data;
-      setCards(cards);
+      setCards(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -44,9 +45,7 @@ export function ContextoProvider({children}) {
         },
       });
 
-      const newCard = response.data;
-
-      setCards([newCard, ...cards]);
+      setCards([response.data, ...cards]);
       //setUpdate(true);
 
     } catch (error) {
@@ -63,8 +62,7 @@ export function ContextoProvider({children}) {
           authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
         }
       });
-      const newCards = cards.filter((card) => card._id !== cardId);
-      setCards(newCards);
+      setCards(cards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +98,6 @@ export function ContextoProvider({children}) {
         console.log(error);
       }
     }
-    //refrescar todo
     fetchCard();
 
     const newCards = cards.map(card => {

@@ -1,6 +1,6 @@
 import React from "react";
 import '../../src/index.css';
-import { useForm } from "./useForm";
+import { useForm } from "../hooks/useForm";
 import PopupWithForm from "./PopupWithForm";
 import Card from "./Card";
 
@@ -13,8 +13,8 @@ const Main = () => {
   const [isOpenModal2, openModal2, closeModal2] = useForm(false);
   const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
-  const { isAvatar, handleSubmitAvatar } = AvatarCustom();
-  const { userObject, handleSubmitPerfil } = PerfilCustom();
+  const { avatar, handleSubmitAvatar } = AvatarCustom();
+  const { name, about, userObject, handleSubmitPerfil } = PerfilCustom();
   const { handleSubmitCard } = useCards()
 
   function handleEditAvatarClick(e) {
@@ -66,12 +66,12 @@ const Main = () => {
       <section className="profile">
         <div className="profile__container">
           <div className="profile__images">
-            <img src={isAvatar} alt="a person" className="profile__img" onClick={openModal1} />
+            <img src={avatar} alt="a person" className="profile__img" onClick={openModal1} />
             <img src="/images/prfile__pencil.png" alt="icon edit images" className="profile__edit" />
           </div>
           <div className="profile__person">
-            <h2 className={`"profile__name"`}>{userObject.name}</h2>
-            <p className={`"profile__about"`}>{userObject.about}</p>
+            <h2 className={`"profile__name"`}>{name}</h2>
+            <p className={`"profile__about"`}>{about}</p>
           </div>
           <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2} /></button>
         </div>
@@ -80,6 +80,7 @@ const Main = () => {
       <section className="elements">
         <Card userObject={userObject} />
       </section>
+      {/*Cambiar Avatar*/}
       <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
         <h4 className="popup__title">Cambiar foto de perfil</h4>
         <form onSubmit={handleSubmitAvatar} className="popup__form" name="popup1__form" noValidate>
@@ -88,7 +89,7 @@ const Main = () => {
             className="popup__name popup__input"
             id="popup1__name"
             type="text"
-            placeholder="Nombre"
+            placeholder="URL"
             minLength="2"
             maxLength="500"
             name="name"
@@ -98,6 +99,7 @@ const Main = () => {
           <button onClick={closeModal1} className="popup__button-form popup__button-form_inactive">Guardar</button>
         </form>
       </PopupWithForm>
+      {/*Editar Perfil*/}
       <PopupWithForm isOpen={isOpenModal2} closeModal={closeModal2}>
         <h4 className="popup__title">Editar perfil</h4>
         <form onSubmit={handleSubmitPerfil} className="popup__form" name="popup__form" noValidate>
@@ -128,6 +130,7 @@ const Main = () => {
           <button onClick={closeModal2} type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
         </form>
       </PopupWithForm>
+      {/*Agregar Tarjeta*/}
       <PopupWithForm isOpen={isOpenModal3} closeModal={closeModal3}>
         <h4 className="popup__title">Nuevo lugar</h4>
         <form onSubmit={handleSubmitCard} className="popup__form" name="popup3__form">
