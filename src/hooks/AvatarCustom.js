@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import api2 from "../utils/api2";
+import Api from "../utils/Api";
 
-//todo: fix display of the avatar
 export function AvatarCustom(){
   const [avatar, setAvatar] = useState("");
 
@@ -9,7 +8,7 @@ export function AvatarCustom(){
     const fetchAvatar = async () => {
       try {
 
-        const response = await api2().getUserInfo();
+        const response = await Api().getUserInfo();
         setAvatar(response.avatar);
 
       } catch (error) {
@@ -28,7 +27,7 @@ export function AvatarCustom(){
     const { popup1__name } = e.target;
 
     try {
-      const response = await api2().updateAvatar(popup1__name.value);
+      const response = await Api().updateAvatar(popup1__name.value);
       setAvatar(response.avatar);
     } catch (error) {
       console.log(error);

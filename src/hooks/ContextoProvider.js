@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import api2 from "../utils/api2";
+import Api from "../utils/Api";
 
-//todo unify api calls inside Api.js
 export const contexto = React.createContext();
 
 export function useCards(){
@@ -23,7 +22,7 @@ export function ContextoProvider({children}) {
 
   const fetchCard = async () => {
     try {
-      const response = await api2().getCards()
+      const response = await Api().getCards()
       setCards(response);
     } catch (error) {
       console.log(error);
@@ -33,7 +32,7 @@ export function ContextoProvider({children}) {
   const handleSubmitCard = async (e) => {
     e.preventDefault();
     try{
-      const response = await api2().postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
+      const response = await Api().postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
       setCards([response, ...cards]);
     } catch (error) {
       console.log(error);
@@ -43,7 +42,7 @@ export function ContextoProvider({children}) {
   const handleDeleteCard = async (event) => {
     try {
       const cardId = event.target.getAttribute('data-card-id');
-      await api2().deleteCard(cardId);
+      await Api().deleteCard(cardId);
       setCards(cards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.log(error);
@@ -61,7 +60,7 @@ export function ContextoProvider({children}) {
     if (imgElement.src.includes("heart_black")) {
       try {
 
-        await api2().deleteLike(cardId);
+        await Api().deleteLike(cardId);
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +68,7 @@ export function ContextoProvider({children}) {
     else {
       try{
 
-        await api2().putLike(cardId);
+        await Api().putLike(cardId);
       } catch (error) {
         console.log(error);
       }

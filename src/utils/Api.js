@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api2 = () => {
+const Api = () => {
   const api_base = axios.create({
     baseURL: "https://around.nomoreparties.co/v1/cohort-1-es/"
   });
@@ -19,13 +19,13 @@ const api2 = () => {
   }
 
   const updateUserProfile = async (name, about) => {
-    const response = await api_base.patch("users/me", { name, about });
+    const response = await api_base.patch("users/me", { name, about }, authHeaders);
     return response.data;
   };
 
 
   const updateAvatar = async (avatar) => {
-    const response = await api_base.patch("users/me/avatar", { avatar });
+    const response = await api_base.patch("users/me/avatar", { avatar }, authHeaders);
     return response.data;
   }
 
@@ -63,4 +63,4 @@ const api2 = () => {
           deleteLike, putLike};
 };
 
-export default api2;
+export default Api;

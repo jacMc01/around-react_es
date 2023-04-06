@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import api2 from "../utils/api2";
+import Api from "../utils/Api";
 
-//todo : unify with AvatarCustom
 export function PerfilCustom(){
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -11,7 +10,7 @@ export function PerfilCustom(){
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await api2().getUserInfo();
+        const response = await Api().getUserInfo();
 
         setUserObject(response);
         setName(response.name);
@@ -28,7 +27,7 @@ export function PerfilCustom(){
     const { popup__name, popup__about } = e.target;
 
     try {
-      const response = await api2().updateUserProfile(popup__name.value, popup__about.value);
+      const response = await Api().updateUserProfile(popup__name.value, popup__about.value);
       setName(response.name);
       setAbout(response.about);
     } catch (error) {
