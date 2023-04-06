@@ -78,7 +78,7 @@ const Main = () => {
         <button className="profile__btn-image" onClick={openModal3}><img src="/images/profile__plus.png" alt="icon plus" className="profile__button-plus" /></button>
       </section>
       <section className="elements">
-        <Card userObject={userObject} />
+        <Card />
       </section>
       {/*Cambiar Avatar*/}
       <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>

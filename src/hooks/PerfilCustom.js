@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
-import api from "../utils/api";
-
+import api2 from "../utils/api2";
 
 //todo : unify with AvatarCustom
 export function PerfilCustom(){
@@ -12,14 +11,11 @@ export function PerfilCustom(){
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await api.get("users/me", {
-          headers: {
-            authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
-          }
-        });
-        setUserObject(response.data);
-        setName(response.data.name);
-        setAbout(response.data.about);
+        const response = await api2().getUserInfo();
+
+        setUserObject(response);
+        setName(response.name);
+        setAbout(response.about);
       } catch (error) {
         console.log(error);
       }
@@ -27,23 +23,18 @@ export function PerfilCustom(){
     fetchUser();
   }, []);
 
-
   const handleSubmitPerfil = async (e) => {
     e.preventDefault();
-    try{
-      const response = await api.patch("users/me", {name: e.target["popup__name"].value, about: e.target["popup__about"].value}, {
-        headers: {
-          authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-          "Content-Type": "application/json"
-        },
-      });
-      setName(response.data.name);
-      setAbout(response.data.about);
+    const { popup__name, popup__about } = e.target;
 
+    try {
+      const response = await api2().updateUserProfile(popup__name.value, popup__about.value);
+      setName(response.name);
+      setAbout(response.about);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return {name, about,userObject, handleSubmitPerfil}
 }

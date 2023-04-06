@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useCards } from "../hooks/ContextoProvider";
 import ImagePopup from "./ImagePopup";
+import {PerfilCustom} from "../hooks/PerfilCustom";
 
-const Card = ({userObject}) => {
+const Card = () => {
+
+  const { userObject } = PerfilCustom();
   const { cards, handleDeleteCard, handleLikeCard } = useCards()
   const heartBlack = '/images/heart_black.png'
   const heartWhite = '/images/heart.png'
 
   const [likeStatus, setLikeStatus] = useState([]);
 
+  useEffect(() => {
 
-  useEffect((userObject) => {
+    if (!cards) {
+      return;
+    }
+    if (!userObject) {
+      return;
+    }
+
     const initialLikeStatus = cards.map((item) => {
-      return userObject && userObject._id && item.likes.some(user => {
-        return user && user._id === userObject._id
+      return item.likes.some(user => {
+        return user._id === userObject._id
       });
     });
     setLikeStatus(initialLikeStatus);
   }, [cards]);
+
+  const handleTest = () => {
+    console.log("inside handleTest")
+  }
 
   return (
     <>

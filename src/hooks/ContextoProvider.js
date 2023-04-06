@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import api from "../utils/api";
-
+import api2 from "../utils/api2";
 
 //todo unify api calls inside Api.js
 export const contexto = React.createContext();
@@ -24,12 +23,8 @@ export function ContextoProvider({children}) {
 
   const fetchCard = async () => {
     try {
-      const response = await api.get("cards", {
-        headers: {
-          authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
-        }
-      });
-      setCards(response.data);
+      const response = await api2().getCards()
+      setCards(response);
     } catch (error) {
       console.log(error);
     }
@@ -38,30 +33,17 @@ export function ContextoProvider({children}) {
   const handleSubmitCard = async (e) => {
     e.preventDefault();
     try{
-      const response = await api.post("cards", {name: e.target["popup3__name"].value, link: e.target["popup3__about"].value}, {
-        headers: {
-          authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-          "Content-Type": "application/json"
-        },
-      });
-
-      setCards([response.data, ...cards]);
-      //setUpdate(true);
-
+      const response = await api2().postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
+      setCards([response, ...cards]);
     } catch (error) {
       console.log(error);
     }
   }
 
-
   const handleDeleteCard = async (event) => {
     try {
       const cardId = event.target.getAttribute('data-card-id');
-      await api.delete(`cards/${cardId}`, {
-        headers: {
-          authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d"
-        }
-      });
+      await api2().deleteCard(cardId);
       setCards(cards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.log(error);
@@ -69,31 +51,25 @@ export function ContextoProvider({children}) {
   }
 
   const handleLikeCard = async (event) => {
+
     const imgElement = event.target;
 
     const cardId = event.target.getAttribute('data-card-id');
     const userId = event.target.getAttribute('data-user-id');
 
+
     if (imgElement.src.includes("heart_black")) {
       try {
-        const send_str_url = `cards/likes/${cardId}`
-        await api.delete(send_str_url, {
-          headers: {
-            Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-          }
-        });
+
+        await api2().deleteLike(cardId);
       } catch (error) {
         console.log(error);
       }
     }
     else {
       try{
-        const send_str_url = `cards/likes/${cardId}`
-        await api.put(send_str_url,{}, {
-          headers: {
-            Authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-          }
-        });
+
+        await api2().putLike(cardId);
       } catch (error) {
         console.log(error);
       }
