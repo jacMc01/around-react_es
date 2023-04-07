@@ -27,11 +27,7 @@ const Card = () => {
       });
     });
     setLikeStatus(initialLikeStatus);
-  }, [cards]);
-
-  const handleTest = () => {
-    console.log("inside handleTest")
-  }
+  }, [cards, userObject]);
 
   return (
     <>
