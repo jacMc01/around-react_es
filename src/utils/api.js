@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Api = () => {
+export default const Api = () => {
   const api_base = axios.create({
     baseURL: "https://around.nomoreparties.co/v1/cohort-1-es/"
   });
@@ -62,5 +62,3 @@ const Api = () => {
   return { updateUserProfile, updateAvatar, getUserInfo, getCards, postCard, deleteCard,
           deleteLike, putLike};
 };
-
-export default Api;
