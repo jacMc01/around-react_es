@@ -38,10 +38,7 @@ export function CurrentUserContext({children}) {
   const fetchUser = async () => {
     try {
       const response = await Api().getUserInfo();
-
-      console.log(response)
       setCurrentUser(response);
-
     } catch (error) {
       console.log(error);
     }
