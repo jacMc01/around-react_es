@@ -1,15 +1,17 @@
 import {useEffect, useState} from "react";
 import Api from "../utils/Api";
+import { useCards } from "../contexts/CurrentUserContext";
 
 export function AvatarCustom(){
-  const [avatar, setAvatar] = useState("");
+
+  const { setCurrentUser } = useCards()
 
   useEffect(() => {
     const fetchAvatar = async () => {
       try {
 
         const response = await Api().getUserInfo();
-        setAvatar(response.avatar);
+        setCurrentUser(response);
 
       } catch (error) {
         console.log(error);
@@ -28,12 +30,12 @@ export function AvatarCustom(){
 
     try {
       const response = await Api().updateAvatar(popup1__name.value);
-      setAvatar(response.avatar);
+      setCurrentUser(response);
     } catch (error) {
       console.log(error);
     }
   };
 
 
-  return {avatar, handleSubmitAvatar}
+  return {handleSubmitAvatar}
 }

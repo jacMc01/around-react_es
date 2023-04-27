@@ -1,19 +1,20 @@
 
 import React from "react";
+import {useState, useEffect} from "react";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import {ContextoProvider} from "../hooks/ContextoProvider";
 
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function App() {
 
   return (
   <>
     <Header />
-    <ContextoProvider>
+    <CurrentUserContext>
       <Main />
-    </ContextoProvider>
+    </CurrentUserContext>
     <Footer />
   </>
   );

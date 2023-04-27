@@ -1,20 +1,18 @@
 import {useEffect, useState} from "react";
 import Api from "../utils/Api";
+import { useCards } from "../contexts/CurrentUserContext";
 
 export function PerfilCustom(){
-  const [name, setName] = useState("");
-  const [about, setAbout] = useState("");
 
-  const [userObject, setUserObject] = useState({});
+  const { setCurrentUser } = useCards()
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await Api().getUserInfo();
 
-        setUserObject(response);
-        setName(response.name);
-        setAbout(response.about);
+        setCurrentUser(response);
+
       } catch (error) {
         console.log(error);
       }
@@ -28,12 +26,13 @@ export function PerfilCustom(){
 
     try {
       const response = await Api().updateUserProfile(popup__name.value, popup__about.value);
-      setName(response.name);
-      setAbout(response.about);
+
+      setCurrentUser(response);
+
     } catch (error) {
       console.log(error);
     }
   };
 
-  return {name, about,userObject, handleSubmitPerfil}
+  return {handleSubmitPerfil}
 }

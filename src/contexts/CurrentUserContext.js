@@ -7,13 +7,13 @@ export const contexto = React.createContext();
 export function useCards(){
   const context = useContext(contexto);
   if(!context){
-    throw new Error("useCards must be used within a ContextoProvider");
+    throw new Error("useCards must be used within a CurrentUserContext");
   }
   return context;
 }
 
 
-export function ContextoProvider({children}) {
+export function CurrentUserContext({children}) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -29,7 +29,27 @@ export function ContextoProvider({children}) {
     }
   };
 
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const response = await Api().getUserInfo();
+
+      console.log(response)
+      setCurrentUser(response);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmitCard = async (e) => {
+    console.log("handleSubmitCard")
+    debugger
     e.preventDefault();
     try{
       const response = await Api().postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
@@ -86,15 +106,17 @@ export function ContextoProvider({children}) {
     setCards(newCards);
   }
 
-  const valorDelContexto = {
+  const contextValue = {
     cards,
+    currentUser,
+    setCurrentUser,
     handleSubmitCard,
     handleDeleteCard,
     handleLikeCard
   }
 
   return(
-    <contexto.Provider value={valorDelContexto}>
+    <contexto.Provider value={contextValue}>
       {children}
     </contexto.Provider>
   )
