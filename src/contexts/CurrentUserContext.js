@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useContext } from "react";
-import Api from "../utils/Api";
+import Api from "../utils/api";
 
 export const contexto = React.createContext();
 
