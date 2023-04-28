@@ -1,64 +1,68 @@
+
 import axios from "axios";
 
-export default const Api = () => {
-  const api_base = axios.create({
-    baseURL: "https://around.nomoreparties.co/v1/cohort-1-es/"
-  });
+class Api {
+  constructor() {
+    this.api_base = axios.create({
+      baseURL: "https://around.nomoreparties.co/v1/cohort-1-es/"
+    });
 
-  const authHeaders = {
-    headers: {
-      authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-      "Content-Type": "application/json"
+    this.authHeaders = {
+      headers: {
+        authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+        "Content-Type": "application/json"
+      }
+    }
+
+    this.authHeaders2 = {
+      headers: {
+        authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
+      }
     }
   }
 
-  const authHeaders2 = {
-    headers: {
-      authorization: "716b8afb-3113-4c1d-98fb-541a60ec168d",
-    }
-  }
-
-  const updateUserProfile = async (name, about) => {
-    const response = await api_base.patch("users/me", { name, about }, authHeaders);
+  async updateUserProfile(name, about) {
+    const response = await this.api_base.patch("users/me", { name, about }, this.authHeaders);
     return response.data;
   };
 
 
-  const updateAvatar = async (avatar) => {
-    const response = await api_base.patch("users/me/avatar", { avatar }, authHeaders);
+  async updateAvatar(avatar) {
+    const response = await this.api_base.patch("users/me/avatar", { avatar }, this.authHeaders);
     return response.data;
   }
 
-  const getUserInfo = async () => {
-    const response = await api_base.get("users/me", authHeaders2);
+  async getUserInfo() {
+    const response = await this.api_base.get("users/me", this.authHeaders2);
     return response.data;
   }
 
-  const getCards = async () => {
-    const response = await api_base.get("cards", authHeaders2);
+  async getCards() {
+    const response = await this.api_base.get("cards", this.authHeaders2);
     return response.data;
   }
 
-  const postCard = async (name, link) => {
-    const response = await api_base.post("cards", { name, link }, authHeaders);
+  async postCard(name, link) {
+    const response = await this.api_base.post("cards", { name, link }, this.authHeaders);
     return response.data;
   }
 
-  const deleteCard = async (cardId) => {
-    const response = await api_base.delete(`cards/${cardId}`, authHeaders);
+  async deleteCard(cardId) {
+    const response = await this.api_base.delete(`cards/${cardId}`, this.authHeaders);
     return response.data;
   }
 
-  const deleteLike = async (cardId) => {
-    const response = await api_base.delete(`cards/likes/${cardId}`, authHeaders2);
+  async deleteLike(cardId) {
+    const response = await this.api_base.delete(`cards/likes/${cardId}`, this.authHeaders2);
     return response.data;
   }
 
-  const putLike = async (cardId) => {
-    const response = await api_base.put(`cards/likes/${cardId}`,{} ,authHeaders2);
+  async putLike(cardId) {
+    const response = await this.api_base.put(`cards/likes/${cardId}`, {} ,this.authHeaders2);
     return response.data;
   }
+}
 
-  return { updateUserProfile, updateAvatar, getUserInfo, getCards, postCard, deleteCard,
-          deleteLike, putLike};
-};
+const api = new Api();
+
+export default api;

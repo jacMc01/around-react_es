@@ -10,7 +10,7 @@ export function AvatarCustom(){
     const fetchAvatar = async () => {
       try {
 
-        const response = await Api().getUserInfo();
+        const response = await Api.getUserInfo();
         setCurrentUser(response);
 
       } catch (error) {
@@ -29,7 +29,7 @@ export function AvatarCustom(){
     const { popup1__name } = e.target;
 
     try {
-      const response = await Api().updateAvatar(popup1__name.value);
+      const response = await Api.updateAvatar(popup1__name.value);
       setCurrentUser(response);
     } catch (error) {
       console.log(error);

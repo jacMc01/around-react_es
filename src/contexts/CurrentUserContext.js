@@ -22,7 +22,7 @@ export function CurrentUserContext({children}) {
 
   const fetchCard = async () => {
     try {
-      const response = await Api().getCards()
+      const response = await Api.getCards()
       setCards(response);
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ export function CurrentUserContext({children}) {
 
   const fetchUser = async () => {
     try {
-      const response = await Api().getUserInfo();
+      const response = await Api.getUserInfo();
       setCurrentUser(response);
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export function CurrentUserContext({children}) {
     debugger
     e.preventDefault();
     try{
-      const response = await Api().postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
+      const response = await Api.postCard(e.target['popup3__name'].value, e.target['popup3__about'].value);
       setCards([response, ...cards]);
     } catch (error) {
       console.log(error);
@@ -59,7 +59,7 @@ export function CurrentUserContext({children}) {
   const handleDeleteCard = async (event) => {
     try {
       const cardId = event.target.getAttribute('data-card-id');
-      await Api().deleteCard(cardId);
+      await Api.deleteCard(cardId);
       setCards(cards.filter((card) => card._id !== cardId));
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ export function CurrentUserContext({children}) {
     if (imgElement.src.includes("heart_black")) {
       try {
 
-        await Api().deleteLike(cardId);
+        await Api.deleteLike(cardId);
       } catch (error) {
         console.log(error);
       }
@@ -85,7 +85,7 @@ export function CurrentUserContext({children}) {
     else {
       try{
 
-        await Api().putLike(cardId);
+        await Api.putLike(cardId);
       } catch (error) {
         console.log(error);
       }

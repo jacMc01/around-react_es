@@ -9,7 +9,7 @@ export function PerfilCustom(){
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await Api().getUserInfo();
+        const response = await Api.getUserInfo();
 
         setCurrentUser(response);
 
@@ -25,7 +25,7 @@ export function PerfilCustom(){
     const { popup__name, popup__about } = e.target;
 
     try {
-      const response = await Api().updateUserProfile(popup__name.value, popup__about.value);
+      const response = await Api.updateUserProfile(popup__name.value, popup__about.value);
 
       setCurrentUser(response);
 
