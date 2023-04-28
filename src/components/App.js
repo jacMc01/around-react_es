@@ -10,9 +10,9 @@ function App() {
   return (
   <>
     <Header />
-    <CurrentUserContext>
+    <CurrentUserContext.Provider>
       <Main />
-    </CurrentUserContext>
+    </CurrentUserContext.Provider>
     <Footer />
   </>
   );
