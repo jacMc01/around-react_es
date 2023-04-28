@@ -4,6 +4,10 @@ import { useForm } from "../hooks/useForm";
 import PopupWithForm from "./PopupWithForm";
 import Card from "./Card";
 
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import EditProfilePopup from "./EditProfilePopup";
+
 import { AvatarCustom } from "../hooks/AvatarCustom.js";
 import { PerfilCustom } from "../hooks/PerfilCustom.js";
 import { useCards } from "../contexts/CurrentUserContext";
@@ -99,82 +103,16 @@ const Main = () => {
         <Card />
       </section>
       {/*Cambiar Avatar*/}
-      <PopupWithForm isOpen={isOpenModal1} closeModal={closeModal1}>
-        <h4 className="popup__title">Cambiar foto de perfil</h4>
-        <form onSubmit={handleSubmitAvatar} className="popup__form" name="popup1__form" noValidate>
-          <input
-            onChange={handleEditAvatarClick}
-            className="popup__name popup__input"
-            id="popup1__name"
-            type="text"
-            placeholder="URL"
-            minLength="2"
-            maxLength="500"
-            name="name"
-            required>
-          </input>
-          <span className="popup__name-error"></span>
-          <button onClick={closeModal1} className="popup__button-form popup__button-form_inactive">Guardar</button>
-        </form>
+      <PopupWithForm isOpen={isOpenModal1}>
+        <EditAvatarPopup closeModal={closeModal1} handleEditAvatarClick={handleEditAvatarClick} handleSubmitAvatar={handleSubmitAvatar} />
       </PopupWithForm>
       {/*Editar Perfil*/}
       <PopupWithForm isOpen={isOpenModal2} closeModal={closeModal2}>
-        <h4 className="popup__title">Editar perfil</h4>
-        <form onSubmit={handleSubmitPerfil} className="popup__form" name="popup__form" noValidate>
-          <input
-            className="popup__name popup__input"
-            id="popup__name"
-            type="text"
-            placeholder="Nombre"
-            minLength="2"
-            maxLength="40"
-            name="name"
-            onChange={handleEditProfileClick}
-            required>
-          </input>
-          <span className="popup__name-error"></span>
-          <input
-            className="popup__about popup__input"
-            id="popup__about"
-            type="text"
-            placeholder="Acerca de mi"
-            minLength="2"
-            maxLength="200"
-            name="aboutMe"
-            onChange={handleEditProfileClick}
-            required>
-          </input>
-          <span className="popup__about-error"></span>
-          <button onClick={closeModal2} type="submit" className="popup__button-form popup__button-form_inactive">Guardar</button>
-        </form>
+        <EditProfilePopup closeModal={closeModal2} handleEditProfileClick={handleEditProfileClick} handleSubmitPerfil={handleSubmitPerfil} />
       </PopupWithForm>
       {/*Agregar Tarjeta*/}
-      <PopupWithForm isOpen={isOpenModal3} closeModal={closeModal3}>
-        <h4 className="popup__title">Nuevo lugar</h4>
-        <form onSubmit={handleSubmitCard} className="popup__form" name="popup3__form">
-          <input
-            className="popup__name popup__input"
-            id="popup3__name"
-            type="text"
-            placeholder="Titulo"
-            maxLength="30"
-            minLength="2"
-            onChange={handleAddPlaceClick}>
-
-          </input>
-          <span className="popup__name-error"></span>
-          <input
-            className="popup__about popup__input"
-            id="popup3__about"
-            type="url"
-            placeholder="Enlace de la imagen"
-            minLength="2"
-            maxLength="200"
-            onChange={handleAddPlaceClick} required>
-          </input>
-          <span className="popup__name-error"></span>
-          <button onClick={closeModal3} className="popup__button-form popup__button-form_inactive">Guardar</button>
-        </form>
+      <PopupWithForm isOpen={isOpenModal3} >
+        <AddPlacePopup closeModal={closeModal3} handleAddPlaceClick={handleAddPlaceClick} handleSubmitCard={handleSubmitCard} />
       </PopupWithForm>
     </>
   );
