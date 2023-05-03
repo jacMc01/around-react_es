@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 
-import {contexto, CurrentUserContext} from "../contexts/CurrentUserContext";
+import {contexto} from "../contexts/CurrentUserContext";
 import Api from "../utils/api";
 
 function App() {
