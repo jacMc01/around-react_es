@@ -25,20 +25,20 @@ const Main = () => {
   const { handleSubmitPerfil } = PerfilCustom();
 
 
-  const [nameState, setNameState] = useState("Loading");
-  const [aboutState, setAboutState] = useState("Loading");
-  const [avatarState, setAvatarState] = useState("Loading");
+  // const [nameState, setNameState] = useState("Loading");
+  // const [aboutState, setAboutState] = useState("Loading");
+  // const [avatarState, setAvatarState] = useState("Loading");
 
-  useEffect(() => {
-    if (!currentUser) {
-      return;
-    }
-
-    setNameState(currentUser.name);
-    setAboutState(currentUser.about);
-    setAvatarState(currentUser.avatar);
-
-  },[currentUser]);
+  // useEffect(() => {
+  //   if (!currentUser) {
+  //     return;
+  //   }
+  //
+  //   setNameState(currentUser.name);
+  //   setAboutState(currentUser.about);
+  //   setAvatarState(currentUser.avatar);
+  //
+  // },[currentUser]);
 
 
   function handleEditAvatarClick(e) {
@@ -90,12 +90,12 @@ const Main = () => {
       <section className="profile">
         <div className="profile__container">
           <div className="profile__images">
-            <img src={avatarState} alt="a person" className="profile__img" onClick={openModal1} />
+            <img src={currentUser.avatar} alt="a person" className="profile__img" onClick={openModal1} />
             <img src="/images/prfile__pencil.png" alt="icon edit images" className="profile__edit" />
           </div>
           <div className="profile__person">
-            <h2 className={`"profile__name"`}>{nameState}</h2>
-            <p className={`"profile__about"`}>{aboutState}</p>
+            <h2 className={`"profile__name"`}>{currentUser.name}</h2>
+            <p className={`"profile__about"`}>{currentUser.about}</p>
           </div>
           <button className="profile__button-person"><img src="/images/prfile__pencil.png" alt="heart icon" className="profile__icon" onClick={openModal2} /></button>
         </div>
