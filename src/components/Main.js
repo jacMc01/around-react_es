@@ -20,6 +20,7 @@ const Main = () => {
 
 
   const { handleSubmitCard, currentUser} = useContext(contexto)
+
   const { handleSubmitAvatar } = AvatarCustom();
   const { handleSubmitPerfil } = PerfilCustom();
 
