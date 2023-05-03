@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import {React, useState, useEffect, useContext} from "react";
 import '../../src/index.css';
 import { useForm } from "../hooks/useForm";
 import PopupWithForm from "./PopupWithForm";
@@ -10,7 +10,8 @@ import EditProfilePopup from "./EditProfilePopup";
 
 import { AvatarCustom } from "../hooks/AvatarCustom.js";
 import { PerfilCustom } from "../hooks/PerfilCustom.js";
-import { useCards } from "../contexts/CurrentUserContext";
+import { contexto } from "../contexts/CurrentUserContext";
+
 
 const Main = () => {
   const [isOpenModal1, openModal1, closeModal1] = useForm(false);
@@ -18,7 +19,7 @@ const Main = () => {
   const [isOpenModal3, openModal3, closeModal3] = useForm(false);
 
 
-  const { handleSubmitCard, currentUser} = useCards()
+  const { handleSubmitCard, currentUser} = useContext(contexto)
   const { handleSubmitAvatar } = AvatarCustom();
   const { handleSubmitPerfil } = PerfilCustom();
 
