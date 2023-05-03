@@ -28,20 +28,7 @@ export function CurrentUserContext() {
     }
   };
 
-  const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const fetchUser = async () => {
-    try {
-      const response = await Api.getUserInfo();
-      setCurrentUser(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleSubmitCard = async (e) => {
     console.log("handleSubmitCard")
@@ -104,8 +91,6 @@ export function CurrentUserContext() {
 
   const contextValue = {
     cards,
-    currentUser,
-    setCurrentUser,
     handleSubmitCard,
     handleDeleteCard,
     handleLikeCard
