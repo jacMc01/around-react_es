@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useCards } from "../contexts/CurrentUserContext";
+import React, { useState, useEffect, useContext } from "react";
+import { contexto } from "../contexts/CurrentUserContext";
 import ImagePopup from "./ImagePopup";
 
 const Card = () => {
 
-  const { cards, handleDeleteCard, handleLikeCard, currentUser } = useCards()
+  const { cards, handleDeleteCard, handleLikeCard, currentUser } = useContext(contexto)
   const heartBlack = '/images/heart_black.png'
   const heartWhite = '/images/heart.png'
 
