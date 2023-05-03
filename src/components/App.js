@@ -124,7 +124,7 @@ function App() {
   <>
     <Header />
     <contexto.Provider value={{...contextValue, currentUser, setCurrentUser, likeStatus, setLikeStatus}}>
-      <Main currentUser={setCurrentUser}/>
+      <Main />
     </contexto.Provider>
     <Footer />
   </>
