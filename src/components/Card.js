@@ -4,11 +4,9 @@ import ImagePopup from "./ImagePopup";
 
 const Card = () => {
 
-  const { cards, handleDeleteCard, handleLikeCard, currentUser } = useContext(contexto)
+  const { cards, handleDeleteCard, handleLikeCard, currentUser, setLikeStatus, likeStatus } = useContext(contexto)
   const heartBlack = '/images/heart_black.png'
   const heartWhite = '/images/heart.png'
-
-  const [likeStatus, setLikeStatus] = useState([]);
 
   useEffect(() => {
 

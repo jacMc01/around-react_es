@@ -25,22 +25,6 @@ const Main = () => {
   const { handleSubmitPerfil } = PerfilCustom();
 
 
-  // const [nameState, setNameState] = useState("Loading");
-  // const [aboutState, setAboutState] = useState("Loading");
-  // const [avatarState, setAvatarState] = useState("Loading");
-
-  // useEffect(() => {
-  //   if (!currentUser) {
-  //     return;
-  //   }
-  //
-  //   setNameState(currentUser.name);
-  //   setAboutState(currentUser.about);
-  //   setAvatarState(currentUser.avatar);
-  //
-  // },[currentUser]);
-
-
   function handleEditAvatarClick(e) {
     e.preventDefault();
 

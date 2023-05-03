@@ -10,6 +10,7 @@ import Api from "../utils/api";
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
+  const [likeStatus, setLikeStatus] = useState([]);
 
   useEffect(() => {
     fetchUser();
@@ -27,7 +28,7 @@ function App() {
   return (
   <>
     <Header />
-    <contexto.Provider value={{...CurrentUserContext(), currentUser, setCurrentUser}}>
+    <contexto.Provider value={{...CurrentUserContext(), currentUser, setCurrentUser, likeStatus, setLikeStatus}}>
       <Main currentUser={setCurrentUser}/>
     </contexto.Provider>
     <Footer />
