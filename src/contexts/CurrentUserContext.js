@@ -12,8 +12,7 @@ export function useCards(){
   return context;
 }
 
-
-export function CurrentUserContext({children}) {
+export function CurrentUserContext() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -112,9 +111,6 @@ export function CurrentUserContext({children}) {
     handleLikeCard
   }
 
-  return(
-    <contexto.Provider value={contextValue}>
-      {children}
-    </contexto.Provider>
-  )
+  return contextValue
+
 }

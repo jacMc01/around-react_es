@@ -4,16 +4,16 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import {contexto, CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function App() {
 
   return (
   <>
     <Header />
-    <CurrentUserContext>
+    <contexto.Provider value={CurrentUserContext()}>
       <Main />
-    </CurrentUserContext>
+    </contexto.Provider>
     <Footer />
   </>
   );
