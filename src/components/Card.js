@@ -8,20 +8,6 @@ const Card = () => {
   const heartBlack = '/images/heart_black.png'
   const heartWhite = '/images/heart.png'
 
-  useEffect(() => {
-
-    if (!cards) {
-      return;
-    }
-
-    const initialLikeStatus = cards.map((item) => {
-      return item.likes.some(user => {
-        return user._id === currentUser._id
-      });
-    });
-    setLikeStatus(initialLikeStatus);
-  }, [cards, currentUser]);
-
   return (
     <>
       {cards.map((card, index) => (
